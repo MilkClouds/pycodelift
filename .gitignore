@@ -1,0 +1,18 @@
+# Build artifacts
+build/
+dist/
+*.egg-info/
+src/pycodelift/_version.py
+
+# Caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+__pycache__/
+*.pyc
+
+# Editor
+.vscode/
+.idea/

@@ -1,0 +1,30 @@
+name: pycodelift CI
+
+# Inactive while pycodelift lives inside lazyregistry/ (GitHub only reads
+# workflows from .github/workflows/ at the repository root). Activates
+# automatically when pycodelift is split into its own repo.
+
+on:
+  push:
+    paths: ["pycodelift/**"]
+  pull_request:
+    paths: ["pycodelift/**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pycodelift
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv python install ${{ matrix.python-version }}
+      - run: uv venv --python ${{ matrix.python-version }} .venv
+      - run: uv pip install --python .venv/bin/python -e . pytest pytest-cov ruff
+      - run: .venv/bin/ruff check src tests
+      - run: .venv/bin/python -m pytest tests/ -v
