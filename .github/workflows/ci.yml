@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # hatch-vcs reads git tags for the version
+          fetch-tags: true  # hatch-vcs reads git tags for the version
       - uses: astral-sh/setup-uv@v3
       - run: uv python install ${{ matrix.python-version }}
       - run: uv venv --python ${{ matrix.python-version }} .venv
