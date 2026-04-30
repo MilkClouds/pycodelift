@@ -16,3 +16,6 @@ __pycache__/
 # Editor
 .vscode/
 .idea/
+
+# Tooling state
+.omc/
